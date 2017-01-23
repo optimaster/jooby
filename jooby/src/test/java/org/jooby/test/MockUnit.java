@@ -23,6 +23,11 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.primitives.Primitives;
 
+/**
+ * Utility test class for mocks. Internal use only.
+ *
+ * @author edgar
+ */
 @SuppressWarnings({"rawtypes", "unchecked" })
 public class MockUnit {
 
@@ -111,7 +116,7 @@ public class MockUnit {
   public <T> List<T> captured(final Class<T> type) {
     List<Capture<Object>> captureList = this.captures.get(type);
     List<T> result = new LinkedList<>();
-    captureList.forEach(it -> result.add((T) it.getValue()));
+    captureList.stream().filter(Capture::hasCaptured).forEach(it -> result.add((T) it.getValue()));
     return result;
   }
 
